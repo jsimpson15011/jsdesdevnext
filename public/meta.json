@@ -1,0 +1,80 @@
+{
+  "name": "jsdesdev-next",
+  "plugins": [
+    {
+      "name": "TailwindCSS",
+      "description": "A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.",
+      "url": "https://tailwindcss.com/docs"
+    },
+    {
+      "name": "Styled Components",
+      "description": "Utilising tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components.",
+      "url": "https://styled-components.com/docs"
+    },
+    {
+      "name": "Fetch",
+      "description": "Next.js has a built-in polyfill for the fetch API. You don't need to worry about using it on either server or client side.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
+    },
+    {
+      "name": "Axios",
+      "description": "Promise based HTTP client for the browser and node.js.",
+      "url": "https://github.com/axios/axios"
+    },
+    {
+      "name": "SVGR",
+      "description": "Transform SVGs into React components.",
+      "url": "https://react-svgr.com/docs/getting-started/"
+    },
+    {
+      "name": "Environment Variables",
+      "description": "Use environment variables in your next.js project for server side, client or both.",
+      "url": "https://github.com/vercel/next.js/tree/canary/examples/environment-variables"
+    },
+    {
+      "name": "graphql-request",
+      "description": "Minimal GraphQL client supporting Node and browsers for scripts or simple apps",
+      "url": "https://github.com/prisma-labs/graphql-request"
+    },
+    {
+      "name": "SWR",
+      "description": "React Hooks library for data fetching from Vercel",
+      "url": "https://swr.vercel.app/"
+    },
+    {
+      "name": "React Redux",
+      "description": "Redux helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.",
+      "url": "https://redux.js.org/introduction/getting-started"
+    },
+    {
+      "name": "RTK Query",
+      "description": "RTK Query is a powerful data fetching and caching tool",
+      "url": "https://redux-toolkit.js.org/rtk-query/overview"
+    },
+    {
+      "name": "ESLint",
+      "description": "A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript. Maintain your code quality with ease.",
+      "url": "https://eslint.org/docs/user-guide/getting-started"
+    },
+    {
+      "name": "Enzyme",
+      "description": "Enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output. You can also manipulate, traverse, and in some ways simulate runtime given the output.",
+      "url": "https://enzymejs.github.io/enzyme/"
+    },
+    {
+      "name": "Cypress",
+      "description": "Fast, easy and reliable testing for anything that runs in a browser.",
+      "url": "https://docs.cypress.io/guides/overview/why-cypress.html"
+    },
+    {
+      "name": "Docker",
+      "description": "Docker simplifies and accelerates your workflow, while giving developers the freedom to innovate with their choice of tools, application stacks, and deployment environments for each project.",
+      "url": "https://www.docker.com/get-started"
+    },
+    {
+      "name": "Github Actions",
+      "description": "GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.",
+      "url": "https://docs.github.com/en/actions"
+    }
+  ]
+}
