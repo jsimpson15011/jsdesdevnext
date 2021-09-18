@@ -9,6 +9,7 @@ import client, {
 } from "@lib/sanity"
 import {useRouter} from "next/router";
 import {groq} from "next-sanity";
+import Projects from "@components/projects";
 
 type homeProps = {
     projectData: any,
@@ -69,6 +70,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
 
     const [tagState, updateTags] = useState(initialTags)
     const [projectState, updateProjects] = useState(initialProjects)
+    const [visibleProjects, updateVisibleProjects] = useState(initialProjects)
     const [clickableTagState, updateClickableTags] = useState(initialClickableTags)
 
     function handleTagClick(tag: tag) {
@@ -103,7 +105,12 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
             }
         })
 
+        const updatedProject = projectState.filter((project: any) => {
+            return project.isVisible;
+        })
+
         updateClickableTags(updatedClickableTags)
+        updateVisibleProjects(updatedProject)
     }, [projectState])
 
     function handleProjectUpdate() {
@@ -139,80 +146,15 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         updateProjects(updatedProjects)
     }
 
-
-    const activeTagStyle = {
-        fontWeight: "bold",
-        background: "yellow",
-        width: "200px"
-    } as const
-
-    const inactiveTagStyle = {
-        ...activeTagStyle,
-        background: "gray"
-    } as const
-
-    const disabledTagStyle = {
-        ...inactiveTagStyle,
-        background: "#9e9e9e",
-        fontWeight: "light",
-        color: "#4f5252"
-    } as const
-
-    const tagFilterButtons = tagState.map((tag: tag) => {
-
-        const isClickable = clickableTagState.has(tag._id)
-        let currStyle = inactiveTagStyle
-
-        if(tag.isActive)
-        {
-            currStyle = activeTagStyle as never
-        }
-
-        if(!isClickable)
-        {
-            currStyle = disabledTagStyle as never
-        }
-
-        return (
-            <button disabled={!clickableTagState.has(tag._id)} style={currStyle}
-                    onClick={() => {
-                        handleTagClick(tag)
-                    }} key={tag._id}>
-                {tag.title}
-            </button>
-        )
-
-
-    })
-
-    const projectComponents = projectState.map(((project: any) => {
-        if (project.isVisible) {
-            return (
-                <div key={project._id}>
-                    <h2>{project.title}</h2>
-                    <div className="tag-container">
-                        {
-                            project.tags.map((tag: tag) => {
-                                return (
-                                    <a key={tag._id}>
-                                        {tag.title}
-                                    </a>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            )
-        }
-
-    }))
-
-
     return (
         <Container>
             <Header/>
-            {tagFilterButtons}
-            {projectComponents}
+            <Projects
+                visibleProjects={visibleProjects}
+                tagState={tagState}
+                clickableTagState={clickableTagState}
+                handleTagClick={handleTagClick}
+            />
             <Main/>
             <Footer/>
         </Container>

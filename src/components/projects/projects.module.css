@@ -1,0 +1,34 @@
+.itemEnter {
+    opacity: 0;
+    max-height: 0;
+}
+.itemEnterActive {
+    opacity: 1;
+    max-height: 500px;
+    transition: opacity 500ms ease-in, transform 500ms ease-in, max-height 500ms ease-in,padding 500ms ease-in;
+}
+.itemExit {
+    opacity: 1;
+    max-height: 100px;
+    padding: 0;
+}
+.itemExitActive {
+    opacity: 0;
+    transform: translateX(-20%);
+    max-height: 0;
+    padding: 0;
+    transition: opacity 500ms ease-in, transform 500ms ease-in, max-height 500ms ease-in;
+}
+
+.tag-container{
+    background: black;
+    color: white;
+}
+
+.projectContainer{
+    background: gainsboro;
+    width: 500px;
+    margin: 1rem auto;
+    box-sizing: border-box;
+    padding: 1rem;
+}
