@@ -149,12 +149,14 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
     return (
         <Container>
             <Header/>
-            <Projects
-                visibleProjects={visibleProjects}
-                tagState={tagState}
-                clickableTagState={clickableTagState}
-                handleTagClick={handleTagClick}
-            />
+            <div className="wrapper">
+                <Projects
+                    visibleProjects={visibleProjects}
+                    tagState={tagState}
+                    clickableTagState={clickableTagState}
+                    handleTagClick={handleTagClick}
+                />
+            </div>
             <Main/>
             <Footer/>
         </Container>
@@ -163,13 +165,18 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
 
 const query = groq`
 *[_type == "project"] | order(_createdAt desc) {
- _id, title,...,
+ _id, title,
+ description,
+ subTitle,
+ externalUrl,
+ "mainImage": image.asset->url,
+ "backgroundImage": backgroundImage.asset->url,
  tags[]->
 }
 `;
 
 const tagsQuery = groq`
-*[_type == "projectTag"] | order(_createdAt desc) {
+*[_type == "projectTag"] | order(title asc) {
  _id,
  title
 }
