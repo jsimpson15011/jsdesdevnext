@@ -5,7 +5,7 @@ import {
 
 import styles from './projects.module.css'
 
-import React, { FunctionComponent, ReactNode} from "react";
+import React, {ChangeEvent, FunctionComponent, ReactNode, useState} from "react";
 import {tag, project} from "@components/projects/types"
 
 
@@ -14,6 +14,9 @@ type projectProps = {
     clickableTagState: Set<unknown>,
     visibleProjects: project[],
     handleTagClick: (tag: tag) => void,
+    handleTagReset: () => void,
+    handleSearch: (e: ChangeEvent) => void,
+    searchValue: string,
     children?: ReactNode
 }
 
@@ -21,8 +24,16 @@ const Projects: FunctionComponent<projectProps> = ({
                                                        tagState,
                                                        clickableTagState,
                                                        visibleProjects,
-                                                       handleTagClick
+                                                       handleTagClick,
+                                                       handleTagReset,
+                                                       handleSearch,
+                                                       searchValue
                                                    }: projectProps) => {
+
+
+    const hasActiveTags = tagState.filter((tag: tag) => {
+        return tag.isActive
+    }).length > 0
 
     const tagFilterButtons = tagState.map((tag: tag) => {
 
@@ -37,15 +48,16 @@ const Projects: FunctionComponent<projectProps> = ({
             currStyle = styles.disabledTag
         }
 
-        return (
-            <button disabled={!clickableTagState.has(tag._id)} className={styles.tag + " " + currStyle}
-                    onClick={() => {
-                        handleTagClick(tag)
-                    }} key={tag._id}>
-                {tag.title}
-            </button>
-        )
-
+        if(tag.isVisible){
+            return (
+                <button disabled={!clickableTagState.has(tag._id)} className={styles.tag + " " + currStyle}
+                        onClick={() => {
+                            handleTagClick(tag)
+                        }} key={tag._id}>
+                    {tag.title}
+                </button>
+            )
+        }
 
     })
 
@@ -113,6 +125,16 @@ const Projects: FunctionComponent<projectProps> = ({
 
     return (
         <>
+            <div className={styles.searchForm}>
+                <h2 className={styles.searchFormHeader}>Filter by Tag</h2>
+                {
+                    hasActiveTags ?
+                        <button onClick={handleTagReset} className={styles.searchFormButton}>Clear Filter</button> : ""
+                }
+                <input value={searchValue} type="text" onChange={(e: ChangeEvent) => {
+                    handleSearch(e)
+                }} className={styles.searchFormInput}/>
+            </div>
             <div className={styles.tagFilterContainer}>
                 {tagFilterButtons}
             </div>

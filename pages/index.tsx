@@ -1,4 +1,4 @@
-import React, {FunctionComponent, ReactNode, useEffect, useState} from "react";
+import React, {ChangeEvent, FunctionComponent, ReactNode, useEffect, useState} from "react";
 
 import {Container, Header, Main, Footer, Cards} from "@components";
 import {GetStaticProps} from "next";
@@ -66,6 +66,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
     const [projectState, updateProjects] = useState(initialProjects)
     const [visibleProjects, updateVisibleProjects] = useState(initialProjects)
     const [clickableTagState, updateClickableTags] = useState(initialClickableTags)
+    const[searchValue, setSearchValue] = useState("");
 
     function handleTagClick(tag: tag) {
         const updatedTags = tagState.map((currTag: tag) => {
@@ -82,6 +83,36 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         })
 
         updateTags(updatedTags)
+    }
+
+    function handleTagReset(){
+        const updatedTags = tagState.map((curr: tag) => {
+            return(
+                {
+                    ...curr,
+                    isActive: false
+                }
+            )
+        })
+
+        setSearchValue('')
+        updateTags(updatedTags)
+    }
+
+    useEffect(() => {
+        const updatedTags = tagState.map((tag: tag) => {
+            return({
+                ...tag,
+                isVisible: tag.title.toLowerCase().includes(searchValue.toLowerCase())
+            })
+        })
+
+        updateTags(updatedTags)
+    }, [searchValue])
+
+    function handleSearch(e: ChangeEvent){
+        e.preventDefault()
+        setSearchValue(e.target.value)
     }
 
     useEffect(() => {
@@ -149,6 +180,9 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
                     tagState={tagState}
                     clickableTagState={clickableTagState}
                     handleTagClick={handleTagClick}
+                    handleTagReset={handleTagReset}
+                    handleSearch={handleSearch}
+                    searchValue={searchValue}
                 />
             </div>
             <Main/>
