@@ -118,7 +118,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
                     isVisible: true
                 }
             }
-            const isInFuse = fuseResult.filter((fuse: any) => {
+            const isInFuse = fuseResult.filter((fuse: { item : {_id:string} }) => {
                 return fuse.item._id === tag._id
             }).length > 0;
 
