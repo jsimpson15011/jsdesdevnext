@@ -5,20 +5,14 @@ import {
 
 import styles from './projects.module.css'
 
-import React, {Component, FunctionComponent, ReactNode} from "react";
-import {Button} from "@components";
+import React, { FunctionComponent, ReactNode} from "react";
+import {tag, project} from "@components/projects/types"
 
-type tag = {
-    _id: string,
-    title: string,
-    isActive: boolean,
-    isVisible: boolean
-}
 
 type projectProps = {
     tagState: tag[],
-    clickableTagState: any,
-    visibleProjects: any,
+    clickableTagState: Set<unknown>,
+    visibleProjects: project[],
     handleTagClick: (tag: tag) => void,
     children?: ReactNode
 }
@@ -29,20 +23,6 @@ const Projects: FunctionComponent<projectProps> = ({
                                                        visibleProjects,
                                                        handleTagClick
                                                    }: projectProps) => {
-    const activeTagStyle = {
-        fontWeight: "bold",
-    } as const
-
-    const inactiveTagStyle = {
-        ...activeTagStyle,
-    } as const
-
-    const disabledTagStyle = {
-        ...inactiveTagStyle,
-        background: "#9e9e9e",
-        fontWeight: "light",
-        color: "#4f5252"
-    } as const
 
     const tagFilterButtons = tagState.map((tag: tag) => {
 
@@ -70,7 +50,7 @@ const Projects: FunctionComponent<projectProps> = ({
     })
 
 
-    const projectComponents = visibleProjects.map(((project: any) => {
+    const projectComponents = visibleProjects.map(((project: project) => {
         return (
             <CSSTransition key={project._id} timeout={600} classNames={{
                 enter: styles.itemEnter,
@@ -98,7 +78,7 @@ const Projects: FunctionComponent<projectProps> = ({
                         <div className={styles.projectRow}>
                             <div className={styles.bottomTags}>
                                 {
-                                    project.tags.map((tag: tag) => {
+                                    project?.tags?.map((tag: { title: string, _id: string }) => {
                                         let bottomTagStyle = styles.bottomTag
                                         const findTag = tagState.filter((currTag: tag) => {
                                             return (currTag._id === tag._id && currTag.isActive)

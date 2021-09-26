@@ -10,10 +10,11 @@ import client, {
 import {useRouter} from "next/router";
 import {groq} from "next-sanity";
 import Projects from "@components/projects";
+import {project, tag} from "@components/projects/types"
 
 type homeProps = {
-    projectData: any,
-    tagsData: any,
+    projectData: project[],
+    tagsData: tag[],
     preview: boolean,
     children?: ReactNode
 }
@@ -44,7 +45,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         }
     })
 
-    const initialProjects = projects.map((projects: any) => {
+    const initialProjects = projects.map((projects: project) => {
         return (
             {
                 ...projects,
@@ -55,18 +56,11 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
 
     const initialClickableTags = new Set();
 
-    projects.forEach((project: any) => {
-        project.tags.forEach((tag: tag) => {
+    projects.forEach((project: project) => {
+        project?.tags?.forEach((tag: { _id: string }) => {
             initialClickableTags.add(tag._id)
         })
     })
-
-    type tag = {
-        _id: string,
-        title: string,
-        isActive: boolean,
-        isVisible: boolean
-    }
 
     const [tagState, updateTags] = useState(initialTags)
     const [projectState, updateProjects] = useState(initialProjects)
@@ -97,15 +91,15 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
     useEffect(() => {
         const updatedClickableTags = new Set();
 
-        projectState.forEach((project: any) => {
+        projectState.forEach((project: project) => {
             if (project.isVisible) {
-                project.tags.forEach((tag: tag) => {
+                project?.tags?.forEach((tag: { _id: string }) => {
                     updatedClickableTags.add(tag._id)
                 })
             }
         })
 
-        const updatedProject = projectState.filter((project: any) => {
+        const updatedProject = projectState.filter((project: project) => {
             return project.isVisible;
         })
 
@@ -122,11 +116,11 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
             }
         })
 
-        const updatedProjects = projectState.map((currProject: any) => {
+        const updatedProjects = projectState.map((currProject: project) => {
             const projectTagSet = new Set();
             let isVisible = true
 
-            currProject.tags.forEach((tag: tag) => {
+            currProject?.tags?.forEach((tag: { _id: string }) => {
                 projectTagSet.add(tag._id)
             })
 
