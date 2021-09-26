@@ -2,6 +2,7 @@ import React, {ChangeEvent, FunctionComponent, ReactNode, useEffect, useState} f
 
 import {Container, Header, Main, Footer, Cards} from "@components";
 import {GetStaticProps} from "next";
+import Fuse from "fuse.js"
 import client, {
     getClient,
     usePreviewSubscription,
@@ -99,11 +100,31 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         updateTags(updatedTags)
     }
 
+    const fuseOptions = {
+        keys: ["title"]
+    }
+
     useEffect(() => {
+
+        const fuse = new Fuse(tagState, fuseOptions)
+
+        const fuseResult = fuse.search(searchValue)
+
         const updatedTags = tagState.map((tag: tag) => {
+            if(!searchValue)
+            {
+                return {
+                    ...tag,
+                    isVisible: true
+                }
+            }
+            const isInFuse = fuseResult.filter((fuse: any) => {
+                return fuse.item._id === tag._id
+            }).length > 0;
+
             return({
                 ...tag,
-                isVisible: tag.title.toLowerCase().includes(searchValue.toLowerCase())
+                isVisible: isInFuse
             })
         })
 
