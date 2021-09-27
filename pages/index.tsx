@@ -131,7 +131,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         updateTags(updatedTags)
     }, [searchValue])
 
-    function handleSearch(e: ChangeEvent){
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement>){
         e.preventDefault()
         setSearchValue(e.target.value)
     }

@@ -15,7 +15,7 @@ type projectProps = {
     visibleProjects: project[],
     handleTagClick: (tag: tag) => void,
     handleTagReset: () => void,
-    handleSearch: (e: ChangeEvent) => void,
+    handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void,
     searchValue: string,
     children?: ReactNode
 }
@@ -131,7 +131,7 @@ const Projects: FunctionComponent<projectProps> = ({
                     hasActiveTags ?
                         <button onClick={handleTagReset} className={styles.searchFormButton}>Clear Filter</button> : ""
                 }
-                <input value={searchValue} type="text" onChange={(e: ChangeEvent) => {
+                <input value={searchValue} type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     handleSearch(e)
                 }} className={styles.searchFormInput}/>
             </div>
