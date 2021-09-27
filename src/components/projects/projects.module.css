@@ -5,18 +5,19 @@
 .itemEnterActive {
     opacity: 1;
     max-height: 500px;
-    transition: opacity 500ms ease-in, transform 500ms ease-in, max-height 500ms ease-in,padding 500ms ease-in;
+    transition: opacity 400ms ease-out, transform 400ms ease-out, max-height 400ms ease-out,padding 400ms ease-out;
 }
 .itemExit {
     opacity: 1;
     max-height: 50px;
-    padding: 0;
+    overflow: hidden;
 }
 .itemExitActive {
     opacity: 0;
-    transform: translateX(-20%);
+    /*transform: translateX(-20%);*/
     max-height: 0;
-    transition: opacity 500ms ease-in, transform 500ms ease-in, max-height 500ms ease-in;
+    padding: 0;
+    transition: opacity 400ms ease-out, transform 400ms ease-out, max-height 400ms ease-out;
 }
 
 .tag{
