@@ -1,0 +1,53 @@
+.header{
+    background: linear-gradient(0deg, rgba(0, 71, 117, 0.64), rgba(0, 71, 117, 0.64)), url("/images/microchip.jpg");
+    background-size: cover;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 1rem 0;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    background: var(--blue900);
+    height: 51px;
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+}
+
+.navWrapper{
+    display: flex;
+    width: 1000px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navRow{
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.nav a{
+    font-size: var(--body-3);
+    color: white;
+    font-weight: bold;
+}
+
+.nav a:hover, .nav a:focus{
+    color: var(--blue300);
+}
+
+.title{
+    color: var(--green400);
+    font-family: var(--sans-font);
+    font-size: var(--heading-2);
+    font-weight: bold;
+    margin-left: 2rem;
+    line-height: 1.1;
+}
+
+.subTitle{
+    font-size: var(--heading-1);
+    color: white;
+    display: block;
+}
