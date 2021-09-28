@@ -1,4 +1,7 @@
 name: ci
+env:
+  NEXT_PUBLIC_SANITY_DATASET: production
+  NEXT_PUBLIC_SANITY_PROJECT_ID: 76fhzp4o
 
 on:
   push:
@@ -44,9 +47,6 @@ jobs:
 
       - name: Run tests
         run: npm run test
-
-      - name: Run build
-        run: npm run build
 
       - name: Run e2e test
         run: npm run cypress:test
