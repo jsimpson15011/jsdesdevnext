@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Cache node_modules 
+      - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: ~/.npm

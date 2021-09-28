@@ -5,7 +5,7 @@ import styles from "./header.module.css"
 
 export const Header: React.FC = () => {
   return (
-    <div className={styles.header}  >
+    <div className={styles.header}  data-test="main-header">
         <div className={styles.nav}>
             <div className={styles.navWrapper}>
                 <div className={styles.navRow}>

@@ -1,4 +1,4 @@
-import React, {ReactChild, ReactChildren, ReactNode} from "react";
+import React, {ReactChild, ReactChildren} from "react";
 import { mount as mountBase, MountRendererProps, ReactWrapper } from "enzyme";
 
 import { Provider } from 'react-redux'
@@ -30,7 +30,7 @@ const AllTheProviders = ({ children } : providerProps)  => {
 };
 
 
-const mount: (node: ReactNode, options?: MountRendererProps) => ReactWrapper = (
+const mount: (node: ReactChild | ReactChildren, options?: MountRendererProps) => ReactWrapper = (
     node,
     options,
 ) => {
