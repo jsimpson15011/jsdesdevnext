@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link"
 
-import { Logo } from "@components";
-
 import styles from "./header.module.css"
 
 export const Header: React.FC = () => {

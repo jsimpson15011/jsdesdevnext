@@ -19,11 +19,9 @@ type homeProps = {
     children?: ReactNode
 }
 
-const Home: FunctionComponent<homeProps> = (props: homeProps) => {
+const ProjectsPage: FunctionComponent<homeProps> = (props: homeProps) => {
     const {projectData, preview, tagsData} = props;
-    /*
-    * Todo I think all state should be transferred over to redux at some point
-    * */
+
     const router = useRouter();
 
     const {data: projects} = usePreviewSubscription(query, {
@@ -245,6 +243,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 
-export default Home;
+export default ProjectsPage;
 
 

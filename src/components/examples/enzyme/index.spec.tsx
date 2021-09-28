@@ -10,7 +10,7 @@ import { EnzymeExample } from "./index";
 
 describe("Component testing with enzyme", () => {
     it("renders without crashing", () => {
-        const wrapper = mount(<EnzymeExample onClick={() => {}} />);
+        const wrapper = mount(<EnzymeExample onClick={() => {console.log("test")}} />);
         expect(wrapper.find("button")).toBeDefined();
     });
     it("button is clickable", () => {

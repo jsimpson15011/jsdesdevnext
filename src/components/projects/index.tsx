@@ -5,7 +5,7 @@ import {
 
 import styles from './projects.module.css'
 
-import React, {ChangeEvent, FunctionComponent, ReactNode, useState} from "react";
+import React, { FunctionComponent, ReactNode} from "react";
 import {tag, project} from "@components/projects/types"
 
 

@@ -85,5 +85,5 @@
     "node_modules",
     "test/*",
     "cypress/*"
-  ],
+  ]
 }

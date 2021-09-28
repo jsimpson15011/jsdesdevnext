@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 const API_URL =
     "https://official-joke-api.appspot.com/jokes/programming/random";
 
-export const FetchExample = () => {
+export const FetchExample = (): unknown => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState([]);

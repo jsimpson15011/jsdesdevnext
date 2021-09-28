@@ -3,19 +3,19 @@ export * from "./dark";
 export * from "./light";
 
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import {DefaultTheme, ThemeProvider} from "styled-components";
 
 import { dark } from "./dark";
 import { light } from "./light";
 
 export const ThemeContext = React.createContext({
   theme: "light",
-  toggle: () => undefined,
+  toggle: () => {console.log("switch")},
 });
 
-export const useTheme = () => {
+export const useTheme = (): {theme: DefaultTheme, toggle: unknown, themeName: string} => {
   const { theme, toggle } = React.useContext(ThemeContext);
-  
+
   return { theme: theme === "light" ? light : dark, toggle, themeName: theme }
 };
 

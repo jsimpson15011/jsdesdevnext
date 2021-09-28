@@ -1,4 +1,4 @@
-export const config = {
+export const config : {dataset: string, projectId: string, apiVersion: string, useCdn: boolean} = {
   /**
    * Find your project ID and dataset in `sanity.json` in your studio project.
    * These are considered “public”, but you can use environment variables
@@ -7,7 +7,7 @@ export const config = {
    * https://nextjs.org/docs/basic-features/environment-variables
    **/
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   apiVersion: "2021-08-11", // or today's date for latest
   /**
    * Set useCdn to `false` if your application require the freshest possible

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function SvgNextjsIcon(props: React.SVGProps<SVGSVGElement>) {
+function SvgNextjsIcon(props: React.SVGProps<SVGSVGElement>): JSX.Element {
     return (
         <svg
             width="1em"
