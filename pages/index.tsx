@@ -11,6 +11,7 @@ import {useRouter} from "next/router";
 import {groq} from "next-sanity";
 import Projects from "@components/projects";
 import {project, tag} from "@components/projects/types"
+import Head from "next/head"
 
 type homeProps = {
     projectData: project[],
@@ -193,6 +194,10 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
 
     return (
         <Container>
+            <Head>
+                <title>Joseph Simpson - Full Stack Developer</title>
+                <link rel='icon' href='/favicon.ico'/>
+            </Head>
             <Header/>
             <div className="wrapper">
                 <Projects
