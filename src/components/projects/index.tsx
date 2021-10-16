@@ -5,8 +5,9 @@ import {
 
 import styles from './projects.module.css'
 
-import React, { FunctionComponent, ReactNode} from "react";
-import {tag, project} from "@components/projects/types"
+import React, {FunctionComponent, ReactNode, useEffect, useState} from "react";
+import {tag, project} from "@components/projects/types";
+import {isMobile} from "react-device-detect"
 
 
 type projectProps = {
@@ -30,6 +31,16 @@ const Projects: FunctionComponent<projectProps> = ({
                                                        searchValue
                                                    }: projectProps) => {
 
+    const [tagFilterHasScrolled, setTagFilterScroll] = useState(false);
+    const [nextIsMobile, setMobile] = useState(false);
+
+    const handleTagFilterScroll = () => {
+        setTagFilterScroll(true)
+    }
+
+    useEffect(() => {
+        setMobile(isMobile)
+    }, [setMobile])
 
     const hasActiveTags = tagState.filter((tag: tag) => {
         return tag.isActive
@@ -50,7 +61,7 @@ const Projects: FunctionComponent<projectProps> = ({
 
         if(tag.isVisible){
             return (
-                <button disabled={!clickableTagState.has(tag._id)} className={styles.tag + " " + currStyle}
+                <button style={{whiteSpace: "nowrap"}} disabled={!clickableTagState.has(tag._id)} className={styles.tag + " " + currStyle}
                         onClick={() => {
                             handleTagClick(tag)
                         }} key={tag._id}>
@@ -125,7 +136,6 @@ const Projects: FunctionComponent<projectProps> = ({
         )
     }))
 
-
     return (
         <>
             <div className={styles.searchForm}>
@@ -138,8 +148,9 @@ const Projects: FunctionComponent<projectProps> = ({
                     handleSearch(e)
                 }} className={styles.searchFormInput}/>
             </div>
-            <div className={styles.tagFilterContainer}>
+            <div className={styles.tagFilterContainer} onScroll={() => {handleTagFilterScroll()}}>
                 {tagFilterButtons}
+                <div className={nextIsMobile && !tagFilterHasScrolled ?  styles.tagFilterGradient : "none" }/>
             </div>
 
             <TransitionGroup>
