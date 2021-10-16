@@ -72,7 +72,10 @@ const Projects: FunctionComponent<projectProps> = ({
             }}>
                 <div>
                     <div className={styles.projectContainer} style={{
-                        background: `linear-gradient(146.41deg, rgba(0, 71, 117, 0.9) 19.96%, rgba(3, 57, 93, 0.9) 86.12%), url("${project.backgroundImage}")`,
+                        background: project.backgroundImage ?
+                            `linear-gradient(146.41deg, rgba(0, 71, 117, 0.9) 19.96%, rgba(3, 57, 93, 0.9) 86.12%), url("${project.backgroundImage}")` :
+                            ''
+                        ,
                         backgroundSize: `cover`
 
                     }}>
