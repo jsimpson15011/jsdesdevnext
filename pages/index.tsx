@@ -96,8 +96,11 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
             )
         })
 
-        setSearchValue('')
         updateTags(updatedTags)
+    }
+
+    function handleSearchClear(){
+        setSearchValue('')
     }
 
     const fuseOptions = {
@@ -207,6 +210,7 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
                     handleTagClick={handleTagClick}
                     handleTagReset={handleTagReset}
                     handleSearch={handleSearch}
+                    handleSearchClear={handleSearchClear}
                     searchValue={searchValue}
                 />
             </div>

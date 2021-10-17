@@ -15,6 +15,7 @@ type projectProps = {
     clickableTagState: Set<unknown>,
     visibleProjects: project[],
     handleTagClick: (tag: tag) => void,
+    handleSearchClear: () => void,
     handleTagReset: () => void,
     handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void,
     searchValue: string,
@@ -28,12 +29,13 @@ const Projects: FunctionComponent<projectProps> = ({
                                                        handleTagClick,
                                                        handleTagReset,
                                                        handleSearch,
-                                                       searchValue
+                                                       searchValue,
+                                                       handleSearchClear
                                                    }: projectProps) => {
     const [tagFilterGradientMaxWidth, setGradientMaxWidth] = useState(45);
     const [nextIsMobile, setMobile] = useState(false);
 
-    const handleTagFilterScroll = (e : React.UIEvent<HTMLDivElement>) => {
+    const handleTagFilterScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const maxScroll = e.currentTarget.scrollWidth - e.currentTarget.clientWidth
         const currScroll = e.currentTarget.scrollLeft
 
@@ -61,9 +63,10 @@ const Projects: FunctionComponent<projectProps> = ({
             currStyle = styles.disabledTag
         }
 
-        if(tag.isVisible){
+        if (tag.isVisible) {
             return (
-                <button style={{whiteSpace: "nowrap"}} disabled={!clickableTagState.has(tag._id)} className={styles.tag + " " + currStyle}
+                <button style={{whiteSpace: "nowrap"}} disabled={!clickableTagState.has(tag._id)}
+                        className={styles.tag + " " + currStyle}
                         onClick={() => {
                             handleTagClick(tag)
                         }} key={tag._id}>
@@ -146,13 +149,22 @@ const Projects: FunctionComponent<projectProps> = ({
                     hasActiveTags ?
                         <button onClick={handleTagReset} className={styles.searchFormButton}>Clear Filter</button> : ""
                 }
-                <input value={searchValue} type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    handleSearch(e)
-                }} className={styles.searchFormInput}/>
+                <div className={styles.searchFormInputContainer}>
+                    <input value={searchValue} type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        handleSearch(e)
+                    }} className={styles.searchFormInput}/>
+                    <button style={{display: searchValue.length > 0 ? "block" :"none"}} className={styles.clearSearchButton} onClick={handleSearchClear}>
+                        <img src="/icons/icon-close-circle.svg" alt="clear tag search query"/>
+                    </button>
+                </div>
+
             </div>
-            <div className={styles.tagFilterContainer} onScroll={(e) => {handleTagFilterScroll(e)}}>
+            <div className={styles.tagFilterContainer} onScroll={(e) => {
+                handleTagFilterScroll(e)
+            }}>
                 {tagFilterButtons}
-                <div style={{maxWidth: `${tagFilterGradientMaxWidth}px`}} className={nextIsMobile ? styles.tagFilterGradient : "none"}/>
+                <div style={{maxWidth: `${tagFilterGradientMaxWidth}px`}}
+                     className={nextIsMobile ? styles.tagFilterGradient : "none"}/>
             </div>
 
             <TransitionGroup>

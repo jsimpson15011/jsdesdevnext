@@ -114,9 +114,10 @@
 }
 
 .mainImage{
-    width: 100%;
+    max-width: 100%;
+    display: block;
     height: auto;
-    margin-bottom: 1rem;
+    margin: 1rem auto;
 }
 
 .bottomTag{
@@ -154,6 +155,7 @@
     font-weight: bold;
     font-family: var(--serif-font);
     transition: background-color 100ms;
+    margin-top: var(--body-5);
 }
 
 .externalLink:hover, .externalLink:focus{
@@ -200,21 +202,45 @@
     }
 }
 
-.searchFormInput{
+.searchFormInputContainer{
     border-bottom: var(--gray-4) 1px solid;
+    display: flex;
+    width: 100%;
+    margin-bottom: var(--body-5);
+    height: 37px;
+}
+
+.searchFormInput{
     background-image: url("/icons/icon-search.svg");
     background-position-y: 50%;
     padding: .25rem .25rem .25rem 1.75rem;
     background-repeat: no-repeat;
     transition: border-bottom-color 400ms;
     width: 100%;
-    margin-bottom: var(--body-5);
+
 }
 @media all and (min-width: 485px){
-    .searchFormInput{
+    .searchFormInput, .searchFormInputContainer{
         width: auto;
         margin-bottom: 0;
     }
+}
+
+.clearSearchButton{
+    width: 44px;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: .5;
+    transition: opacity 200ms, padding 200ms;
+}
+
+.clearSearchButton:focus, .clearSearchButton:hover{
+    opacity: .8;
+}
+
+.clearSearchButton:active{
+    padding: 12px;
+    opacity: 1;
 }
 
 .searchFormInput:focus{
