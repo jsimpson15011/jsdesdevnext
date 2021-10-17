@@ -30,12 +30,14 @@ const Projects: FunctionComponent<projectProps> = ({
                                                        handleSearch,
                                                        searchValue
                                                    }: projectProps) => {
-
-    const [tagFilterHasScrolled, setTagFilterScroll] = useState(false);
+    const [tagFilterGradientMaxWidth, setGradientMaxWidth] = useState(45);
     const [nextIsMobile, setMobile] = useState(false);
 
-    const handleTagFilterScroll = () => {
-        setTagFilterScroll(true)
+    const handleTagFilterScroll = (e : React.UIEvent<HTMLDivElement>) => {
+        const maxScroll = e.currentTarget.scrollWidth - e.currentTarget.clientWidth
+        const currScroll = e.currentTarget.scrollLeft
+
+        setGradientMaxWidth(maxScroll - currScroll)
     }
 
     useEffect(() => {
@@ -148,9 +150,9 @@ const Projects: FunctionComponent<projectProps> = ({
                     handleSearch(e)
                 }} className={styles.searchFormInput}/>
             </div>
-            <div className={styles.tagFilterContainer} onScroll={() => {handleTagFilterScroll()}}>
+            <div className={styles.tagFilterContainer} onScroll={(e) => {handleTagFilterScroll(e)}}>
                 {tagFilterButtons}
-                <div className={nextIsMobile && !tagFilterHasScrolled ?  styles.tagFilterGradient : "none" }/>
+                <div style={{maxWidth: `${tagFilterGradientMaxWidth}px`}} className={nextIsMobile ? styles.tagFilterGradient : "none"}/>
             </div>
 
             <TransitionGroup>
