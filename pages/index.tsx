@@ -1,8 +1,7 @@
-import React, { FunctionComponent, ReactNode, useEffect, useState} from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 
 import {Container, Header, Footer} from "@components";
 import {GetStaticProps} from "next";
-import Fuse from "fuse.js"
 import {
     getClient,
     usePreviewSubscription,
@@ -37,164 +36,6 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
         enabled: preview || router.query.preview !== undefined,
     });
 
-    const initialTags = tags.map((tag: { title: string, _id: string }) => {
-        return {
-            _id: tag._id,
-            title: tag.title,
-            isActive: false,
-            isVisible: true
-        }
-    })
-
-    const initialProjects = projects.map((projects: project) => {
-        return (
-            {
-                ...projects,
-                isVisible: true
-            }
-        )
-    })
-
-    const initialClickableTags = new Set();
-
-    projects.forEach((project: project) => {
-        project?.tags?.forEach((tag: { _id: string }) => {
-            initialClickableTags.add(tag._id)
-        })
-    })
-
-    const [tagState, updateTags] = useState(initialTags)
-    const [projectState, updateProjects] = useState(initialProjects)
-    const [visibleProjects, updateVisibleProjects] = useState(initialProjects)
-    const [clickableTagState, updateClickableTags] = useState(initialClickableTags)
-    const[searchValue, setSearchValue] = useState("");
-
-    function handleTagClick(tag: tag) {
-        const updatedTags = tagState.map((currTag: tag) => {
-            if (currTag._id === tag._id) {
-                return (
-                    {
-                        ...currTag,
-                        isActive: !currTag.isActive
-                    }
-                )
-            } else {
-                return currTag
-            }
-        })
-
-        updateTags(updatedTags)
-    }
-
-    function handleTagReset(){
-        const updatedTags = tagState.map((curr: tag) => {
-            return(
-                {
-                    ...curr,
-                    isActive: false
-                }
-            )
-        })
-
-        updateTags(updatedTags)
-    }
-
-    function handleSearchClear(){
-        setSearchValue('')
-    }
-
-    const fuseOptions = {
-        keys: ["title"]
-    }
-
-    useEffect(() => {
-
-        const fuse = new Fuse(tagState, fuseOptions)
-
-        const fuseResult = fuse.search(searchValue)
-
-        const updatedTags = tagState.map((tag: tag) => {
-            if(!searchValue)
-            {
-                return {
-                    ...tag,
-                    isVisible: true
-                }
-            }
-            const isInFuse = fuseResult.filter((fuse: { item : {_id:string} }) => {
-                return fuse.item._id === tag._id
-            }).length > 0;
-
-            return({
-                ...tag,
-                isVisible: isInFuse
-            })
-        })
-
-        updateTags(updatedTags)
-    }, [searchValue])
-
-    function handleSearch(e: React.ChangeEvent<HTMLInputElement>){
-        e.preventDefault()
-        setSearchValue(e.target.value)
-    }
-
-    useEffect(() => {
-        handleProjectUpdate()
-    }, [tagState])
-
-    useEffect(() => {
-        const updatedClickableTags = new Set();
-
-        projectState.forEach((project: project) => {
-            if (project.isVisible) {
-                project?.tags?.forEach((tag: { _id: string }) => {
-                    updatedClickableTags.add(tag._id)
-                })
-            }
-        })
-
-        const updatedProject = projectState.filter((project: project) => {
-            return project.isVisible;
-        })
-
-        updateClickableTags(updatedClickableTags)
-        updateVisibleProjects(updatedProject)
-    }, [projectState])
-
-    function handleProjectUpdate() {
-        const activeTagSet = new Set();
-
-        tagState.forEach((tag: tag) => {
-            if (tag.isActive) {
-                activeTagSet.add(tag._id)
-            }
-        })
-
-        const updatedProjects = projectState.map((currProject: project) => {
-            const projectTagSet = new Set();
-            let isVisible = true
-
-            currProject?.tags?.forEach((tag: { _id: string }) => {
-                projectTagSet.add(tag._id)
-            })
-
-            activeTagSet.forEach((tag: unknown) => {
-                if (!projectTagSet.has(tag)) {
-                    isVisible = false
-                }
-
-            })
-
-            return {
-                ...currProject,
-                isVisible: isVisible
-            }
-        })
-
-        updateProjects(updatedProjects)
-    }
-
     return (
         <Container>
             <Head>
@@ -204,14 +45,8 @@ const Home: FunctionComponent<homeProps> = (props: homeProps) => {
             <Header/>
             <div className="wrapper">
                 <Projects
-                    visibleProjects={visibleProjects}
-                    tagState={tagState}
-                    clickableTagState={clickableTagState}
-                    handleTagClick={handleTagClick}
-                    handleTagReset={handleTagReset}
-                    handleSearch={handleSearch}
-                    handleSearchClear={handleSearchClear}
-                    searchValue={searchValue}
+                    tags={tags}
+                    projects={projects}
                 />
             </div>
             <Footer/>
