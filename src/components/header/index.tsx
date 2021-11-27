@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
     <div className={styles.header}  data-test="main-header">
         <div className={styles.nav}>
             <div className={styles.navWrapper}>
-                <div className={styles.navRow}>
+               {/* <div className={styles.navRow}>
                     <Link href="/">
                         <a>Home</a>
                     </Link>
@@ -18,13 +18,13 @@ export const Header: React.FC = () => {
                     <Link href="/projects">
                         <a>Projects</a>
                     </Link>
-                </div>
+                </div>*/}
                 <Link href="/">
                     <a>
                         <img alt="" src="/images/js-logo.png"/>
                     </a>
                 </Link>
-                <div className={styles.navRow}>
+               {/* <div className={styles.navRow}>
                     <Link href="/">
                         <a>Home</a>
                     </Link>
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
                     <Link href="/projects">
                         <a>Projects</a>
                     </Link>
-                </div>
+                </div>*/}
             </div>
         </div>
         <h1 className={styles.title}>
