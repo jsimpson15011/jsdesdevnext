@@ -6,26 +6,26 @@
     --gray-4: #AEC0C7;
     --gray-5: #E2EBEE;
     --gray-6: #EFF4F5;
-    --blue100: #F5F9FA;
-    --blue900: #032444;
-    --blue800: #0D446E;
-    --blue200: #D5EFFB;
-    --blue300: #BFE6F8;
-    --blue400: #6ABDE7;
-    --blue500: #0098EB;
-    --blue600: #0F87C2;
-    --blue700: #0C639D;
-    --green100: #F6FAF4;
-    --green200: #EBF3E7;
-    --green300: #B3DAA0;
-    --green400: #92E076;
-    --green500: #6DC065;
-    --green700: #4DA32E;
-    --green600: #4DA32E;
-    --green800: #26561A;
-    --green900: #173314;
+    --blue100: #F8F9FC;
+    --blue200: #EAECF6;
+    --blue300: #C2CBE5;
+    --blue400: #9BA9D4;
+    --blue500: #7A8CC6;
+    --blue600: #4C65B3;
+    --blue700: #374881;
+    --blue800: #233452;
+    --blue900: #141A2E;
+    --green100: #F0FAF9;
+    --green200: #D9F2F0;
+    --green300: #BBE7E5;
+    --green400: #95DAD6;
+    --green500: #58C4BE;
+    --green700: #3BA6A0;
+    --green600: #308883;
+    --green800: #276D69;
+    --green900: #17403E;
 
-    --darkBlueGradient: linear-gradient(180deg, rgba(0,71,117,1) 0%, rgba(3,57,93,1) 100%);
+    --darkBlueGradient: linear-gradient(180deg, rgb(55, 72, 129) 0%, rgb(20, 26, 46) 100%);
 
     /* Text-size styles */
     /* base size: body-4 (16px) */

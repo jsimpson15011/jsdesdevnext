@@ -73,8 +73,11 @@
       "@test": [
         "test"
       ],
-      "@lib/*": [ "./lib/*"]
-    }
+      "@lib/*": [
+        "./lib/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

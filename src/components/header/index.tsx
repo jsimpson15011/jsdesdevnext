@@ -6,37 +6,13 @@ import styles from "./header.module.css"
 export const Header: React.FC = () => {
   return (
     <div className={styles.header}  data-test="main-header">
-        <div className={styles.nav}>
+        <nav className={styles.nav}>
             <div className={styles.navWrapper}>
-               {/* <div className={styles.navRow}>
-                    <Link href="/">
-                        <a>Home</a>
-                    </Link>
-                    <Link href="/about">
-                        <a>About</a>
-                    </Link>
-                    <Link href="/projects">
-                        <a>Projects</a>
-                    </Link>
-                </div>*/}
                 <Link href="/">
-                    <a>
-                        <img alt="" src="/images/js-logo.png"/>
-                    </a>
+                        <img className={styles.logo} alt="" src="/images/bracket-logo.png"/>
                 </Link>
-               {/* <div className={styles.navRow}>
-                    <Link href="/">
-                        <a>Home</a>
-                    </Link>
-                    <Link href="/about">
-                        <a>About</a>
-                    </Link>
-                    <Link href="/projects">
-                        <a>Projects</a>
-                    </Link>
-                </div>*/}
             </div>
-        </div>
+        </nav>
         <h1 className={styles.title}>
             Joseph Simpson
             <span className={styles.subTitle}>
