@@ -9,6 +9,7 @@ import React, {FunctionComponent, ReactNode, useEffect, useState} from "react";
 import {tag, project} from "@components/projects/types";
 import {isMobile} from "react-device-detect"
 import Fuse from "fuse.js";
+import Project from "@components/projects/Project";
 
 
 type projectProps = {
@@ -18,7 +19,7 @@ type projectProps = {
 }
 
 const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProps) => {
-    const initialTags = tags.map((tag: { title: string, _id: string }) => {
+    const initialTags = tags.map<tag>((tag: { title: string, _id: string }) => {
         return {
             _id: tag._id,
             title: tag.title,
@@ -48,7 +49,7 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
     const [projectState, updateProjects] = useState(initialProjects)
     const [visibleProjects, updateVisibleProjects] = useState(initialProjects)
     const [clickableTagState, updateClickableTags] = useState(initialClickableTags)
-    const[searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [tagFilterGradientMaxWidth, setGradientMaxWidth] = useState(45);
     const [nextIsMobile, setMobile] = useState(false);
 
@@ -80,9 +81,9 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
         updateTags(updatedTags)
     }
 
-    function handleTagReset(){
+    function handleTagReset() {
         const updatedTags = tagState.map((curr: tag) => {
-            return(
+            return (
                 {
                     ...curr,
                     isActive: false
@@ -93,7 +94,7 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
         updateTags(updatedTags)
     }
 
-    function handleSearchClear(){
+    function handleSearchClear() {
         setSearchValue('')
     }
 
@@ -108,18 +109,17 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
         const fuseResult = fuse.search(searchValue)
 
         const updatedTags = tagState.map((tag: tag) => {
-            if(!searchValue)
-            {
+            if (!searchValue) {
                 return {
                     ...tag,
                     isVisible: true
                 }
             }
-            const isInFuse = fuseResult.filter((fuse: { item : {_id:string} }) => {
+            const isInFuse = fuseResult.filter((fuse: { item: { _id: string } }) => {
                 return fuse.item._id === tag._id
             }).length > 0;
 
-            return({
+            return ({
                 ...tag,
                 isVisible: isInFuse
             })
@@ -128,7 +128,7 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
         updateTags(updatedTags)
     }, [searchValue])
 
-    function handleSearch(e: React.ChangeEvent<HTMLInputElement>){
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
         setSearchValue(e.target.value)
     }
@@ -222,66 +222,16 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
 
 
     const projectComponents = visibleProjects.map(((project: project) => {
-        return (
-            <CSSTransition key={project._id} timeout={600} classNames={{
-                enter: styles.itemEnter,
-                enterActive: styles.itemEnterActive,
-                exit: styles.itemExit,
-                exitActive: styles.itemExitActive
-            }}>
-                <div>
-                    <div className={styles.projectContainer} style={{
-                        background: project.backgroundImage ?
-                            `linear-gradient(146.41deg, rgba(0, 71, 117, 0.9) 19.96%, rgba(3, 57, 93, 0.9) 86.12%), url("${project.backgroundImage}")` :
-                            ''
-                        ,
-                        backgroundSize: `cover`
-
-                    }}>
-                        <div className={`${styles.projectCol} ${styles.projectColSmall}`}>
-                            <img className={`${styles.mainImage}`} src={project.mainImage} alt=""/>
-                        </div>
-                        <div className={`${styles.projectCol} ${styles.projectColLarge}`}>
-                            <h2 className={styles.projectMainHeader}>{project.title}</h2>
-                            <h3 className={styles.projectSubHeader}>{project.subTitle}</h3>
-                            <div className={`${styles.projectDescription}`}>
-                                {project.description}
-                            </div>
-                        </div>
-
-                        <div className={styles.projectRow}>
-                            <div className={styles.bottomTags}>
-                                {
-                                    project?.tags?.map((tag: { title: string, _id: string }) => {
-                                        let bottomTagStyle = styles.bottomTag
-                                        const findTag = tagState.filter((currTag: tag) => {
-                                            return (currTag._id === tag._id && currTag.isActive)
-                                        })
-
-                                        if (findTag.length > 0) {
-                                            bottomTagStyle += " " + styles.bottomTagActive
-                                        }
-                                        return (
-                                            <a className={bottomTagStyle} key={tag._id}>
-                                                {tag.title}
-                                            </a>
-                                        )
-                                    })
-                                }
-                            </div>
-                            {
-                                project.externalUrl ?
-                                    <a className={styles.externalLink} href={project.externalUrl}>View</a> : ""
-                            }
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </CSSTransition>
-        )
+        return <CSSTransition key={project._id} timeout={600} classNames={{
+            enter: styles.itemEnter,
+            enterActive: styles.itemEnterActive,
+            exit: styles.itemExit,
+            exitActive: styles.itemExitActive
+        }}>
+            <div>
+                <Project project={project} tagState={tagState}/>
+            </div>
+        </CSSTransition>
     }))
 
     return (
@@ -296,7 +246,8 @@ const Projects: FunctionComponent<projectProps> = ({projects, tags}: projectProp
                     <input value={searchValue} type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         handleSearch(e)
                     }} className={styles.searchFormInput}/>
-                    <button style={{display: searchValue.length > 0 ? "block" :"none"}} className={styles.clearSearchButton} onClick={handleSearchClear}>
+                    <button style={{display: searchValue.length > 0 ? "block" : "none"}}
+                            className={styles.clearSearchButton} onClick={handleSearchClear}>
                         <img src="/icons/icon-close-circle.svg" alt="clear tag search query"/>
                     </button>
                 </div>

@@ -82,6 +82,19 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    transition: all 100ms;
+    overflow: hidden;
+}
+.projectContainer:hover{
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
+}
+
+.glow{
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0,212,255,0) 60%);
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 100ms;
 }
 
 .projectColSmall{
